@@ -1,383 +1,475 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, CheckCircle, Zap, Shield, Globe, Cpu, BarChart3, Users, Award, TrendingUp } from 'lucide-react';
+import { ArrowRight, CheckCircle, Zap, Shield, Globe, Cpu, BarChart3, Users, Award, TrendingUp, Play, Sparkles, Brain, Layers, Database, Cloud } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export const Homepage: React.FC = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative pt-20 pb-16 bg-gradient-to-br from-blue-50 via-white to-purple-50 overflow-hidden">
-        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cg fill=%22%239C92AC%22 fill-opacity=%220.03%22%3E%3Cpath d=%22M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50"></div>
-        
+    <div className="min-h-screen bg-black text-white overflow-hidden">
+      {/* Innovative Hero Section */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Animated Background */}
+        <div className="absolute inset-0">
+          {/* Gradient Orb */}
+          <div 
+            className="absolute w-96 h-96 md:w-[600px] md:h-[600px] rounded-full opacity-30 blur-3xl transition-all duration-1000 ease-out"
+            style={{
+              background: 'radial-gradient(circle, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%)',
+              left: `${mousePosition.x * 0.02}px`,
+              top: `${mousePosition.y * 0.02}px`,
+              transform: 'translate(-50%, -50%)'
+            }}
+          />
+          
+          {/* Animated Grid */}
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `
+                linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
+              `,
+              backgroundSize: '50px 50px',
+              animation: 'grid-move 20s linear infinite'
+            }} />
+          </div>
+
+          {/* Floating Particles */}
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-1 h-1 bg-blue-400 rounded-full"
+              initial={{ 
+                x: Math.random() * window.innerWidth, 
+                y: Math.random() * window.innerHeight,
+                opacity: 0 
+              }}
+              animate={{ 
+                y: [null, -100, -200],
+                opacity: [0, 1, 0]
+              }}
+              transition={{
+                duration: Math.random() * 3 + 2,
+                repeat: Infinity,
+                delay: Math.random() * 2
+              }}
+            />
+          ))}
+        </div>
+
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center px-4 py-2 bg-blue-100 rounded-full text-blue-700 text-sm font-medium mb-8">
-              <Zap className="w-4 h-4 mr-2" />
-              Pioneering Industry 4.0/5.0 for Regulated Manufacturing
-            </div>
-            
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 bg-clip-text text-transparent leading-tight">
-              Engineering Intelligence.
-              <br />
-              Empowering Compliance.
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Redefining how regulated industries embrace Industry 4.0/5.0 through intelligent, compliant, and future-ready platforms.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Link
-                to="/contact"
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-xl transition-all duration-200 transform hover:scale-105 flex items-center justify-center"
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              {/* Left Content */}
+              <motion.div 
+                className="text-center lg:text-left"
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8 }}
               >
-                Schedule Demo
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-              <Link
-                to="/solutions"
-                className="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-full font-semibold hover:border-blue-600 hover:text-blue-600 transition-all duration-200 flex items-center justify-center"
-              >
-                Explore Solutions
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About Bhrigu Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">About Bhrigu</h2>
-            <p className="text-xl text-gray-600 leading-relaxed">
-              We identified a <span className="font-semibold text-blue-600">critical gap in digital transformation</span> for regulated industries. 
-              While traditional manufacturing embraces automation, highly regulated sectors like pharmaceuticals, medical devices, 
-              and food manufacturing face unique compliance challenges that standard solutions cannot address.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 hover:shadow-lg transition-all duration-300">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900">Compliance-First Design</h3>
-              <p className="text-gray-600">Built from the ground up with GxP compliance and regulatory requirements at the core.</p>
-            </div>
-            
-            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100 hover:shadow-lg transition-all duration-300">
-              <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Cpu className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900">AI-Powered Intelligence</h3>
-              <p className="text-gray-600">Advanced AI and machine learning capabilities for predictive analytics and quality assurance.</p>
-            </div>
-            
-            <div className="text-center p-6 rounded-2xl bg-gradient-to-br from-teal-50 to-teal-100 hover:shadow-lg transition-all duration-300">
-              <div className="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Globe className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold mb-3 text-gray-900">Future-Ready Platform</h3>
-              <p className="text-gray-600">Scalable, cloud-native architecture designed for Industry 4.0/5.0 transformation.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* BhriguOne Platform Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">BhriguOne - Our Flagship Product</h2>
-            <p className="text-xl text-gray-600 leading-relaxed">
-              <span className="font-semibold text-blue-600">An Omni Connected Software Platform Trusted By Industry Leaders</span>
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
-                  <CheckCircle className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">GxP Friendly</h3>
-                  <p className="text-gray-600">Built specifically for regulated environments with comprehensive compliance features.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Cpu className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Customizable</h3>
-                  <p className="text-gray-600">Tailored to specific industry needs with flexible module configurations.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Globe className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Cloud/Hybrid Hosted</h3>
-                  <p className="text-gray-600">Flexible deployment options including cloud, on-premises, and hybrid solutions.</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
-                  <BarChart3 className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">All-in-One Solution</h3>
-                  <p className="text-gray-600">Seamless integration of all manufacturing and quality modules in one platform.</p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-white rounded-3xl shadow-2xl p-8 transform hover:scale-105 transition-all duration-300">
-              <div className="aspect-video bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl mb-6 flex items-center justify-center">
-                <div className="text-white text-center">
-                  <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Zap className="w-8 h-8" />
-                  </div>
-                  <h3 className="text-xl font-semibold">BhriguOne Platform</h3>
-                  <p className="text-blue-100 mt-2">Interactive Demo Available</p>
-                </div>
-              </div>
-              <Link
-                to="/solutions"
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-200 flex items-center justify-center"
-              >
-                Explore Platform
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Industries We Serve Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Industries We Serve</h2>
-            <p className="text-xl text-gray-600 leading-relaxed">
-              Specialized solutions for highly regulated industries requiring comprehensive compliance and quality management.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { name: 'Pharmaceuticals', color: 'from-blue-500 to-blue-600', icon: '💊' },
-              { name: 'Medical Devices', color: 'from-red-500 to-red-600', icon: '🏥' },
-              { name: 'Food & Beverage', color: 'from-green-500 to-green-600', icon: '🍎' },
-              { name: 'Biotech', color: 'from-purple-500 to-purple-600', icon: '🧬' },
-              { name: 'Nutraceuticals', color: 'from-orange-500 to-orange-600', icon: '💊' },
-            ].map((industry, index) => (
-              <div key={index} className="group">
-                <div className={`bg-gradient-to-r ${industry.color} rounded-2xl p-8 text-white transform group-hover:scale-105 transition-all duration-300 shadow-lg group-hover:shadow-xl`}>
-                  <div className="text-4xl mb-4">{industry.icon}</div>
-                  <h3 className="text-xl font-semibold mb-3">{industry.name}</h3>
-                  <p className="text-sm opacity-90 mb-4">
-                    Comprehensive compliance solutions tailored for {industry.name.toLowerCase()} manufacturing.
-                  </p>
+                {/* Badge */}
+                <motion.div 
+                  className="inline-flex items-center px-4 py-2 bg-blue-500/20 border border-blue-500/30 rounded-full text-blue-300 text-sm font-medium mb-8 backdrop-blur-sm"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <Sparkles className="w-4 h-4 mr-2" />
+                  Unlock the power of AI & Manufacturing
+                </motion.div>
+                
+                {/* Main Heading */}
+                <motion.h1 
+                  className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                    Intelligent
+                  </span>
+                  <br />
+                  <span className="text-white">Manufacturing</span>
+                  <br />
+                  <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    Revolution
+                  </span>
+                </motion.h1>
+                
+                {/* Subtitle */}
+                <motion.p 
+                  className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
+                  Experience the pinnacle of efficiency in regulated manufacturing with AI. 
+                  Our ground-breaking platform opens unlimited potential across industries.
+                </motion.p>
+                
+                {/* CTA Buttons */}
+                <motion.div 
+                  className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                >
                   <Link
-                    to="/industries"
-                    className="inline-flex items-center text-sm font-medium hover:underline"
+                    to="/contact"
+                    className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 flex items-center justify-center relative overflow-hidden"
                   >
-                    Learn More
-                    <ArrowRight className="ml-1 w-4 h-4" />
+                    <span className="relative z-10">Book a Demo</span>
+                    <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </Link>
+                  
+                  <button className="group border-2 border-gray-600 text-white px-8 py-4 rounded-full font-semibold hover:border-blue-500 hover:bg-blue-500/10 transition-all duration-300 flex items-center justify-center backdrop-blur-sm">
+                    <Play className="mr-2 w-5 h-5 group-hover:scale-110 transition-transform" />
+                    Watch Demo
+                  </button>
+                </motion.div>
+              </motion.div>
+
+              {/* Right Content - Interactive Element */}
+              <motion.div 
+                className="relative"
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                <div className="relative">
+                  {/* Main Card */}
+                  <div className="bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8 shadow-2xl">
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                        <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                        <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                      </div>
+                      <span className="text-gray-400 text-sm">BhriguOne Platform</span>
+                    </div>
+                    
+                    {/* Chat Interface */}
+                    <div className="space-y-4">
+                      <div className="bg-blue-600/20 border border-blue-500/30 rounded-2xl p-4">
+                        <p className="text-blue-300 text-sm mb-2">AI Assistant</p>
+                        <p className="text-white">How may I help optimize your manufacturing process today?</p>
+                      </div>
+                      
+                      <div className="bg-gray-800/50 rounded-2xl p-4 ml-8">
+                        <p className="text-gray-300">Analyze production efficiency for Batch #2024-001</p>
+                      </div>
+                      
+                      <div className="bg-green-600/20 border border-green-500/30 rounded-2xl p-4">
+                        <p className="text-green-300 text-sm mb-2">Analysis Complete</p>
+                        <div className="space-y-2">
+                          <div className="flex justify-between">
+                            <span className="text-white">Efficiency Score</span>
+                            <span className="text-green-400 font-semibold">94.7%</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-white">Quality Index</span>
+                            <span className="text-blue-400 font-semibold">98.2%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Floating Elements */}
+                  <motion.div 
+                    className="absolute -top-4 -right-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-4 shadow-xl"
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                  >
+                    <Brain className="w-8 h-8 text-white" />
+                  </motion.div>
+                  
+                  <motion.div 
+                    className="absolute -bottom-4 -left-4 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-2xl p-4 shadow-xl"
+                    animate={{ y: [0, 10, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, delay: 1.5 }}
+                  >
+                    <Database className="w-8 h-8 text-white" />
+                  </motion.div>
                 </div>
-              </div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll Indicator */}
+        <motion.div 
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <div className="w-6 h-10 border-2 border-gray-600 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-blue-500 rounded-full mt-2"></div>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* Trusted By Section */}
+      <section className="py-20 bg-gray-900/50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <p className="text-gray-400 mb-8">Trusted by industry leaders worldwide</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center opacity-60">
+              {['Pfizer', 'Johnson & Johnson', 'Novartis', 'Roche', 'Merck', 'AbbVie'].map((company, index) => (
+                <div key={index} className="text-center">
+                  <div className="text-2xl font-bold text-gray-500">{company}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Interactive Platform Overview */}
+      <section className="py-20 bg-black relative overflow-hidden">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            className="max-w-4xl mx-auto text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                BhriguOne Platform
+              </span>
+            </h2>
+            <p className="text-xl text-gray-300 leading-relaxed">
+              An omni-connected software platform that transforms regulated manufacturing through intelligent automation
+            </p>
+          </motion.div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: 'AI-Powered Intelligence',
+                description: 'Machine learning algorithms that predict, optimize, and prevent issues before they occur',
+                icon: Brain,
+                color: 'from-purple-500 to-pink-500',
+                features: ['Predictive Analytics', 'Quality Forecasting', 'Anomaly Detection']
+              },
+              {
+                title: 'Compliance Automation',
+                description: 'Built-in GxP compliance with automated documentation and audit trail management',
+                icon: Shield,
+                color: 'from-blue-500 to-cyan-500',
+                features: ['FDA Compliance', 'Audit Trails', 'Electronic Signatures']
+              },
+              {
+                title: 'Real-time Integration',
+                description: 'Seamless connectivity with existing systems and real-time data synchronization',
+                icon: Layers,
+                color: 'from-green-500 to-teal-500',
+                features: ['API Integration', 'IoT Connectivity', 'Cloud Sync']
+              }
+            ].map((item, index) => (
+              <motion.div
+                key={index}
+                className="group relative"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.2 }}
+                whileHover={{ y: -10 }}
+              >
+                <div className="bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8 h-full hover:border-gray-600/50 transition-all duration-300">
+                  <div className={`w-16 h-16 bg-gradient-to-r ${item.color} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                    <item.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-semibold mb-4 text-white">{item.title}</h3>
+                  <p className="text-gray-300 mb-6 leading-relaxed">{item.description}</p>
+                  <div className="space-y-2">
+                    {item.features.map((feature, featureIndex) => (
+                      <div key={featureIndex} className="flex items-center space-x-3">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <span className="text-gray-400 text-sm">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* BhriguOne Advantages Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+      {/* Interactive Stats Section */}
+      <section className="py-20 bg-gradient-to-br from-blue-900/20 to-purple-900/20 relative">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">BhriguOne Advantages</h2>
-            <p className="text-xl text-gray-600">Why leading manufacturers choose BhriguOne over traditional solutions</p>
-          </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div className="space-y-6">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-6">Traditional Solutions</h3>
-              {[
-                '❌ High Capital Expenditure',
-                '❌ Separate implementation costs',
-                '❌ Complex qualification processes',
-                '❌ Limited site compatibility',
-                '❌ Expensive hardware requirements'
-              ].map((item, index) => (
-                <div key={index} className="flex items-center space-x-3 p-4 bg-red-50 rounded-lg">
-                  <span className="text-red-600 font-medium">{item}</span>
-                </div>
-              ))}
-            </div>
-            
-            <div className="space-y-6">
-              <h3 className="text-2xl font-semibold text-gray-900 mb-6">BhriguOne Platform</h3>
-              {[
-                '✅ Low Capital Expenditure',
-                '✅ All-in-one pricing includes implementation',
-                '✅ Built-in Qualification & Compliance',
-                '✅ Multiple site compatibility included',
-                '✅ Competitive hardware pricing with advanced secure designs'
-              ].map((item, index) => (
-                <div key={index} className="flex items-center space-x-3 p-4 bg-green-50 rounded-lg">
-                  <span className="text-green-600 font-medium">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Technology Stack Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Advanced Technology Stack</h2>
-            <p className="text-xl text-gray-600">
-              Powered by cutting-edge AI, IoT, and data analytics technologies designed for regulated manufacturing.
-            </p>
-          </div>
-          
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { name: 'AI & Machine Learning', icon: '🤖', description: 'Predictive analytics and quality assurance' },
-              { name: 'IoT Integration', icon: '🌐', description: 'Real-time sensor monitoring and control' },
-              { name: 'Data Analytics', icon: '📊', description: 'Advanced reporting and insights' },
-              { name: 'Cloud Architecture', icon: '☁️', description: 'Scalable and secure deployment' }
-            ].map((tech, index) => (
-              <div key={index} className="text-center p-6 rounded-2xl bg-gradient-to-br from-gray-50 to-blue-50 hover:shadow-lg transition-all duration-300">
-                <div className="text-4xl mb-4">{tech.icon}</div>
-                <h3 className="text-lg font-semibold mb-3 text-gray-900">{tech.name}</h3>
-                <p className="text-gray-600 text-sm">{tech.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Compliance-First Approach Section */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Compliance-First Approach</h2>
-            <p className="text-xl text-gray-600">
-              Built from the ground up with regulatory compliance at the core of every feature and process.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { title: 'GxP Compliance', description: 'FDA, EMA, and global regulatory standards built-in', icon: Shield },
-              { title: 'Audit Trail', description: 'Complete traceability and electronic records', icon: BarChart3 },
-              { title: 'Quality Assurance', description: 'Automated quality control and validation', icon: Award },
-              { title: 'Data Integrity', description: 'ALCOA+ principles and secure data handling', icon: Shield },
-              { title: 'Risk Management', description: 'Integrated risk assessment and mitigation', icon: TrendingUp },
-              { title: 'Regulatory Reporting', description: 'Automated compliance reporting and submissions', icon: BarChart3 }
-            ].map((item, index) => (
-              <div key={index} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
-                <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mb-4">
-                  <item.icon className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3 text-gray-900">{item.title}</h3>
-                <p className="text-gray-600">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Customer Success Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Customer Success Stories</h2>
-            <p className="text-xl text-gray-600">
-              Industry leaders trust BhriguOne to transform their manufacturing operations.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { metric: '50%', label: 'Reduction in Compliance Costs', color: 'text-blue-600' },
-              { metric: '75%', label: 'Faster Time to Market', color: 'text-green-600' },
-              { metric: '90%', label: 'Improved Quality Metrics', color: 'text-purple-600' }
+              { number: '50+', label: 'Manufacturing Sites', sublabel: 'Across 5 countries', icon: Globe },
+              { number: '99.9%', label: 'System Uptime', sublabel: 'Guaranteed reliability', icon: Shield },
+              { number: '75%', label: 'Cost Reduction', sublabel: 'Average savings', icon: TrendingUp },
+              { number: '24/7', label: 'Expert Support', sublabel: 'Global coverage', icon: Users }
             ].map((stat, index) => (
-              <div key={index} className="text-center p-8 rounded-2xl bg-gradient-to-br from-gray-50 to-blue-50">
-                <div className={`text-5xl font-bold mb-2 ${stat.color}`}>{stat.metric}</div>
-                <div className="text-gray-600 font-medium">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Innovation Pipeline Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">Innovation Pipeline</h2>
-            <p className="text-xl text-gray-600">
-              Continuously advancing the future of regulated manufacturing with cutting-edge research and development.
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { title: 'Advanced AI Analytics', status: 'In Development', color: 'bg-blue-100 text-blue-800' },
-              { title: 'Quantum Computing Integration', status: 'Research Phase', color: 'bg-purple-100 text-purple-800' },
-              { title: 'Augmented Reality QC', status: 'Beta Testing', color: 'bg-green-100 text-green-800' }
-            ].map((project, index) => (
-              <div key={index} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
-                <div className={`inline-flex px-3 py-1 rounded-full text-sm font-medium mb-4 ${project.color}`}>
-                  {project.status}
+              <motion.div
+                key={index}
+                className="text-center group"
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <div className="bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8 hover:border-blue-500/30 transition-all duration-300">
+                  <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <stat.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <div className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                    {stat.number}
+                  </div>
+                  <div className="text-xl font-semibold mb-1 text-white">{stat.label}</div>
+                  <div className="text-gray-400 text-sm">{stat.sublabel}</div>
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-gray-900">{project.title}</h3>
-                <p className="text-gray-600">Next-generation capabilities to further enhance manufacturing intelligence.</p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
+      {/* Innovation Timeline */}
+      <section className="py-20 bg-black relative overflow-hidden">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center text-white">
-            <h2 className="text-4xl font-bold mb-6">Ready to Digitize Your Operations?</h2>
-            <p className="text-xl mb-8 opacity-90">
-              Join industry leaders who are transforming their manufacturing with BhriguOne.
+          <motion.div 
+            className="max-w-4xl mx-auto text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                Innovation Pipeline
+              </span>
+            </h2>
+            <p className="text-xl text-gray-300">
+              Continuously advancing the future of regulated manufacturing
+            </p>
+          </motion.div>
+
+          <div className="relative">
+            {/* Timeline Line */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-blue-500 to-purple-500 hidden lg:block"></div>
+            
+            <div className="space-y-12">
+              {[
+                {
+                  title: 'Advanced AI Analytics',
+                  description: 'Next-generation machine learning models for predictive manufacturing',
+                  status: 'In Development',
+                  color: 'from-blue-500 to-cyan-500',
+                  side: 'left'
+                },
+                {
+                  title: 'Quantum Computing Integration',
+                  description: 'Quantum-powered optimization for complex manufacturing processes',
+                  status: 'Research Phase',
+                  color: 'from-purple-500 to-pink-500',
+                  side: 'right'
+                },
+                {
+                  title: 'Augmented Reality QC',
+                  description: 'AR-powered quality control and training systems',
+                  status: 'Beta Testing',
+                  color: 'from-green-500 to-teal-500',
+                  side: 'left'
+                }
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  className={`flex items-center ${item.side === 'right' ? 'lg:flex-row-reverse' : ''}`}
+                  initial={{ opacity: 0, x: item.side === 'left' ? -50 : 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.2 }}
+                >
+                  <div className="flex-1 lg:w-1/2">
+                    <div className={`bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8 ${item.side === 'right' ? 'lg:ml-8' : 'lg:mr-8'}`}>
+                      <div className={`inline-flex px-4 py-2 rounded-full text-sm font-medium mb-4 bg-gradient-to-r ${item.color} text-white`}>
+                        {item.status}
+                      </div>
+                      <h3 className="text-2xl font-semibold mb-3 text-white">{item.title}</h3>
+                      <p className="text-gray-300">{item.description}</p>
+                    </div>
+                  </div>
+                  
+                  {/* Timeline Node */}
+                  <div className="hidden lg:block w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full border-4 border-black relative z-10"></div>
+                  
+                  <div className="flex-1 lg:w-1/2"></div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
+      <section className="py-20 bg-gradient-to-br from-blue-900/30 to-purple-900/30 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 blur-3xl"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div 
+            className="max-w-4xl mx-auto text-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Ready to <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Transform</span> Your Manufacturing?
+            </h2>
+            <p className="text-xl text-gray-300 mb-8 leading-relaxed">
+              Join industry leaders who are revolutionizing their operations with intelligent manufacturing solutions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/contact"
-                className="bg-white text-blue-600 px-8 py-4 rounded-full font-semibold hover:shadow-xl transition-all duration-200 transform hover:scale-105 flex items-center justify-center"
+                className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-full font-semibold hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 flex items-center justify-center relative overflow-hidden"
               >
-                Schedule Consultation
-                <ArrowRight className="ml-2 w-5 h-5" />
+                <span className="relative z-10">Schedule Consultation</span>
+                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" />
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Link>
               <Link
                 to="/solutions"
-                className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition-all duration-200 flex items-center justify-center"
+                className="border-2 border-gray-600 text-white px-8 py-4 rounded-full font-semibold hover:border-blue-500 hover:bg-blue-500/10 transition-all duration-300 flex items-center justify-center backdrop-blur-sm"
               >
-                Explore Solutions
+                Explore Platform
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
+
+      <style jsx>{`
+        @keyframes grid-move {
+          0% { transform: translate(0, 0); }
+          100% { transform: translate(50px, 50px); }
+        }
+      `}</style>
     </div>
   );
 };
